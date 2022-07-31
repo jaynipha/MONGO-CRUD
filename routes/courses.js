@@ -57,13 +57,53 @@ router.get('/getOneCourse/:id', async (req, res)=>{
 
 })
 
-//add a course
+//UPDATING A COURSE
+router.patch('/update/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updatedData = req.body;
+        const options = { new: true };
+
+        const allCourses = await courseModel.findByIdAndUpdate(
+            id, updatedData, options
+        )
+
+        res.send(allCourses)
+    }
+    catch (error) {
+        res.status(400).json({ 
+            status:false,
+            message: error.message })
+    }
+})
+
+//DELETE A COURSE
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const allCourses = await courseModel.findByIdAndDelete(req.params.id)
+        res.send(`the course with ${data.name} has been deleted..`)
+    }
+    catch (error) {
+        res.status(400).json({ 
+            status:false,
+            message: error.message })
+    }
+})
+
+
+//UPDATING A COURSE
 
 
 
-//update a course 
+
+ 
+
+
 
 
 
 
 module.exports = router 
+
+
+
